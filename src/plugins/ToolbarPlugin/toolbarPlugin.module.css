@@ -1,0 +1,31 @@
+.toolbar{
+    border-bottom: solid 1px var(--gray);
+    height: 60px;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: 1px 1px 10px -3px rgba(0, 0, 0, 0.2);
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.disabled{
+    cursor: not-allowed;
+    color: var(--gray);
+    pointer-events: none;
+}
+
+.revision{
+    border-right: solid 1px var(--gray);
+    display: flex;
+    align-items: center;
+    height: 100%;
+    gap: 5px;
+    padding: 3px 10px;
+}
+
+.revision svg{
+    font-weight: 600;
+    font-size: 20px;
+    cursor: pointer;
+}
