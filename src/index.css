@@ -1,9 +1,14 @@
 :root{
-  --gray: #e7e7e7;
+  --gray: #d8d8d8;
+  --light-gray: #f0eeee;
 }
 
 *{
   margin:0;
   padding:0;
   box-sizing: border-box;
+}
+
+body{
+  font-family: 'Barlow', sans-serif;
 }

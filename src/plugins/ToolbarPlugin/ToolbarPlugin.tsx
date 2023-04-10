@@ -5,6 +5,7 @@ import { CiUndo, CiRedo } from "react-icons/ci"
 import { mergeRegister } from '@lexical/utils'
 
 import styles from "./toolbarPlugin.module.css"
+import { BlockFormatDropdown } from '../../components/BlockFormatDropdown/BlockFormatDropdown'
 
 export const ToolbarPlugin = () => {
     const [editor] = useLexicalComposerContext()
@@ -15,18 +16,19 @@ export const ToolbarPlugin = () => {
 
     useEffect(() => {
         mergeRegister(
-            editor.registerCommand(CAN_UNDO_COMMAND, (payload) => {
-                setCanUndo(payload)
-                return false
-            }, COMMAND_PRIORITY_CRITICAL),
             editor.registerCommand(CAN_REDO_COMMAND, (payload) => {
                 setCanRedo(payload)
-                return false
-            }, COMMAND_PRIORITY_CRITICAL)
-        );
+                return payload
+            }, COMMAND_PRIORITY_CRITICAL),
+
+            editor.registerCommand(CAN_UNDO_COMMAND, (payload) => {
+                setCanUndo(payload)
+                return payload
+            },
+                COMMAND_PRIORITY_CRITICAL)
+        )
     }, [editor])
 
-    console.log(canRedo, canUndo)
 
     return (
         <div className={styles.toolbar}>
@@ -34,6 +36,7 @@ export const ToolbarPlugin = () => {
                 <CiUndo className={`${canUndo ? "" : styles.disabled}`} onClick={() => editor.dispatchCommand(UNDO_COMMAND, undefined)} />
                 <CiRedo className={`${canRedo ? "" : styles.disabled}`} onClick={() => editor.dispatchCommand(REDO_COMMAND, undefined)} />
             </div>
+            <BlockFormatDropdown />
         </div>
     )
 }
@@ -64,3 +67,5 @@ export const ToolbarPlugin = () => {
 //         COMMAND_PRIORITY_CRITICAL,
 //     ),
 // );
+
+

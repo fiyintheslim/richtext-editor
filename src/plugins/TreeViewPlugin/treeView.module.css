@@ -3,4 +3,6 @@
     color: #fff;
     border-radius: 10px;
     padding: 5px;
+    width: 100%;
+    min-height: 500px;
 }
