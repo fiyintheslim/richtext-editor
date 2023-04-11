@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
 import { GrTextAlignFull } from "react-icons/gr"
-import { LexicalEditor, $getSelection, $isRangeSelection, $createParagraphNode, TextNode, $insertNodes, ElementNode } from 'lexical'
+import { $getSelection, $isRangeSelection, $createParagraphNode } from 'lexical'
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 import { $setBlocksType } from '@lexical/selection'
 import { $createHeadingNode } from "@lexical/rich-text"
 import { INSERT_UNORDERED_LIST_COMMAND, INSERT_ORDERED_LIST_COMMAND, INSERT_CHECK_LIST_COMMAND } from '@lexical/list'
 
 import styles from "./blockFormatDropdown.module.css"
+import sharedStyles from "../../styles/toolbar.module.css"
 import { CustomParagraphNode } from '../../nodes'
 
 const options = [
@@ -16,17 +17,17 @@ const options = [
         tag: "p"
     },
     {
-        title: "Heading 1",
+        title: "Head 1",
         icon: <GrTextAlignFull />,
         tag: "h1"
     },
     {
-        title: "Heading 2",
+        title: "Head 2",
         icon: <GrTextAlignFull />,
         tag: "h2"
     },
     {
-        title: "Heading 3",
+        title: "Head 3",
         icon: <GrTextAlignFull />,
         tag: "h3"
     },
@@ -89,18 +90,18 @@ export const BlockFormatDropdown = () => {
 
     useEffect(() => {
         editor.registerUpdateListener(() => {
-            console.log("Editor updated")
+
         })
     }, [])
 
     return (
-        <div className={styles.container}>
+        <div className={`${styles.container} ${sharedStyles.container}`}>
             <div className={styles.active}>
                 {active.icon}
                 <span>{active.title}</span>
             </div>
-            <div className={styles.dropdown}>
-                {options.map((opt, i) => <div key={i} className={styles.option} onClick={() => handleBlockFormatSelect(i, opt.tag)}>
+            <div className={sharedStyles.dropdown}>
+                {options.map((opt, i) => <div key={i} className={sharedStyles.option} onClick={() => handleBlockFormatSelect(i, opt.tag)}>
                     {opt.icon}
                     <span>{opt.title}</span>
                 </div>)}

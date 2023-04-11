@@ -6,6 +6,7 @@ import { mergeRegister } from '@lexical/utils'
 
 import styles from "./toolbarPlugin.module.css"
 import { BlockFormatDropdown } from '../../components/BlockFormatDropdown/BlockFormatDropdown'
+import { FontSizeDropdown } from '../../components/FontSizeDropdown/FontSizeDropdown'
 
 export const ToolbarPlugin = () => {
     const [editor] = useLexicalComposerContext()
@@ -32,11 +33,16 @@ export const ToolbarPlugin = () => {
 
     return (
         <div className={styles.toolbar}>
-            <div className={styles.revision}>
+            <div className={styles.container}>
                 <CiUndo className={`${canUndo ? "" : styles.disabled}`} onClick={() => editor.dispatchCommand(UNDO_COMMAND, undefined)} />
                 <CiRedo className={`${canRedo ? "" : styles.disabled}`} onClick={() => editor.dispatchCommand(REDO_COMMAND, undefined)} />
             </div>
-            <BlockFormatDropdown />
+            <div className={styles.container}>
+                <BlockFormatDropdown />
+            </div>
+            <div className={styles.container}>
+                <FontSizeDropdown />
+            </div>
         </div>
     )
 }
