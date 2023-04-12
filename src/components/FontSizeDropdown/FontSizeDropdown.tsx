@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
 import { $getSelection, $isRangeSelection } from 'lexical'
-import { $patchStyleText } from '@lexical/selection'
+import { $patchStyleText, $getSelectionStyleValueForProperty } from '@lexical/selection'
 
 
 import styles from "./fontSizeDropdown.module.css"
@@ -25,10 +25,8 @@ export const FontSizeDropdown = () => {
     const [active, setActive] = useState(fontSizes[4])
     const [editor] = useLexicalComposerContext()
 
-    console.log("Editor",)
 
     function selectFontSize(val: number) {
-        setActive(val)
         editor.update(() => {
             const selection = $getSelection();
 
@@ -40,6 +38,20 @@ export const FontSizeDropdown = () => {
         })
 
     }
+
+    useEffect(() => {
+
+        editor.registerUpdateListener(() => {
+            editor.update(() => {
+                const selection = $getSelection()
+                if ($isRangeSelection(selection)) {
+                    const style = $getSelectionStyleValueForProperty(selection, "font-size", "14px").replace("px", "")
+                    setActive(+style)
+                }
+            })
+        })
+
+    }, [editor])
 
     return (
         <div className={`${styles.container} ${sharedStyles.container}`}>

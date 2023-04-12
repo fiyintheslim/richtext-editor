@@ -60,8 +60,12 @@ export const BlockFormatDropdown = () => {
 
             // $insertNodes([new ElementNode()])
             if (isSelection) {
+
                 switch (tag) {
                     case "p":
+                        $setBlocksType(selection, () => $createParagraphNode())
+                        break
+                    case "div":
                         $setBlocksType(selection, () => $createParagraphNode())
                         break
                     case "h1":
@@ -90,9 +94,41 @@ export const BlockFormatDropdown = () => {
 
     useEffect(() => {
         editor.registerUpdateListener(() => {
+            editor.update(() => {
+                const selection = $getSelection()
 
+                if (!$isRangeSelection(selection)) return
+                const elementKey = selection.anchor.getNode().getKey();
+                const element = editor.getElementByKey(elementKey)
+
+                const tagName = element?.parentElement?.tagName.toLocaleLowerCase()
+
+                switch (tagName) {
+                    case "p":
+                        setActive(options[0])
+                        break
+                    case "div":
+                        setActive(options[0])
+                        break
+                    case "h1":
+                        setActive(options[1])
+                        break
+                    case "h2":
+                        setActive(options[2])
+                        break
+                    case "h3":
+                        setActive(options[3])
+                        break
+                    case "ul":
+                        setActive(options[4])
+                        break
+                    case "ol":
+                        setActive(options[5])
+                        break
+                }
+            })
         })
-    }, [])
+    }, [editor])
 
     return (
         <div className={`${styles.container} ${sharedStyles.container}`}>
