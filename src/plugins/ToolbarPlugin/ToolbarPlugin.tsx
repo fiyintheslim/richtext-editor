@@ -7,6 +7,7 @@ import { mergeRegister } from '@lexical/utils'
 import styles from "./toolbarPlugin.module.css"
 import { BlockFormatDropdown } from '../../components/BlockFormatDropdown/BlockFormatDropdown'
 import { FontSizeDropdown } from '../../components/FontSizeDropdown/FontSizeDropdown'
+import { TextDecoration } from '../../components/TextDecoration/TextDecoration'
 
 export const ToolbarPlugin = () => {
     const [editor] = useLexicalComposerContext()
@@ -42,6 +43,9 @@ export const ToolbarPlugin = () => {
             </div>
             <div className={styles.container}>
                 <FontSizeDropdown />
+            </div>
+            <div className={styles.container}>
+                <TextDecoration />
             </div>
         </div>
     )

@@ -1,0 +1,24 @@
+.container{
+    display: flex;
+    height: 100%;
+    gap: 5px;
+    align-items: center;
+}
+
+.container button{
+    background: none;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 10px;
+    transition: all 0.3s ease;
+}
+
+.container button:hover{
+    background: var(--light-gray);
+}
+
+.container button.active{
+    background: var(--gray);
+}
